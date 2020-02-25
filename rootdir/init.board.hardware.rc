@@ -83,11 +83,6 @@ on boot
     # USB power supply
     chmod 0640 /sys/class/power_supply/usb/current_max
 
-service thermanager /vendor/bin/thermanager /vendor/etc/thermanager.xml
-    class main
-    user root
-    group root system
-
 service updatemiscta /system/bin/updatemiscta
     class main
     user root
