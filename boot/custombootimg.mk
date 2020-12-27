@@ -19,21 +19,50 @@ $(uncompressed_ramdisk): $(INSTALLED_RAMDISK_TARGET)
 
 recovery_uncompressed_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.cpio
 recovery_uncompressed_device_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery-device.cpio
-$(recovery_uncompressed_device_ramdisk): $(MKBOOTFS) $(ADBD) \
+$(recovery_uncompressed_device_ramdisk): $(MKBOOTFS) \
 		$(INTERNAL_ROOT_FILES) \
+		$(INSTALLED_RAMDISK_TARGET) \
 		$(INTERNAL_RECOVERYIMAGE_FILES) \
-		$(recovery_initrc) $(recovery_sepolicy) $(recovery_kernel) \
+		$(recovery_sepolicy) \
 		$(INSTALLED_2NDBOOTLOADER_TARGET) \
 		$(INSTALLED_RECOVERY_BUILD_PROP_TARGET) \
 		$(recovery_resource_deps) $(recovery_root_deps) \
 		$(recovery_fstab) \
 		$(RECOVERY_INSTALL_OTA_KEYS) \
 		$(INTERNAL_BOOTIMAGE_FILES)
-	$(call build-recoveryramdisk)
-	$(hide) cp $(DEVICE_LOGORLE) $(TARGET_RECOVERY_ROOT_OUT)/
-	$(hide) $(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) > $@
-	$(hide) rm -f $(recovery_uncompressed_ramdisk)
-	$(hide) cp $(recovery_uncompressed_device_ramdisk) $(recovery_uncompressed_ramdisk)
+	# Making recovery image
+	mkdir -p $(TARGET_RECOVERY_OUT)
+	mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/sdcard $(TARGET_RECOVERY_ROOT_OUT)/tmp
+	# Copying baseline ramdisk...
+	# Use rsync because "cp -Rf" fails to overwrite broken symlinks on Mac.
+	rsync -a --exclude=sdcard $(IGNORE_RECOVERY_SEPOLICY) $(IGNORE_CACHE_LINK) $(TARGET_ROOT_OUT) $(TARGET_RECOVERY_OUT)
+	# Modifying ramdisk contents...
+	$(if $(filter true,$(BOARD_BUILD_SYSTEM_ROOT_IMAGE)),, \
+	  ln -sf /system/bin/init $(TARGET_RECOVERY_ROOT_OUT)/init)
+	# Removes $(TARGET_RECOVERY_ROOT_OUT)/init*.rc EXCEPT init.recovery*.rc.
+	find $(TARGET_RECOVERY_ROOT_OUT) -maxdepth 1 -name 'init*.rc' -type f -not -name "init.recovery.*.rc" | xargs rm -f
+	cp $(TARGET_ROOT_OUT)/init.recovery.*.rc $(TARGET_RECOVERY_ROOT_OUT)/ 2> /dev/null || true # Ignore error when the src file doesn't exist.
+	mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/res
+	rm -rf $(TARGET_RECOVERY_ROOT_OUT)/res/*
+	cp -rf $(recovery_resources_common)/* $(TARGET_RECOVERY_ROOT_OUT)/res
+	$(foreach recovery_text_file,$(generated_recovery_text_files), \
+	  cp -rf $(recovery_text_file) $(TARGET_RECOVERY_ROOT_OUT)/res/images/ &&) true
+	cp -f $(recovery_font) $(TARGET_RECOVERY_ROOT_OUT)/res/images/font.png
+	$(foreach item,$(recovery_root_private), \
+	  cp -rf $(item) $(TARGET_RECOVERY_OUT)/;)
+	$(foreach item,$(TARGET_PRIVATE_RES_DIRS), \
+	  cp -rf $(item) $(TARGET_RECOVERY_ROOT_OUT)/$(newline);)
+	$(foreach item,$(recovery_fstab), \
+	  cp -f $(item) $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.fstab;)
+	$(if $(strip $(recovery_wipe)), \
+	  cp -f $(recovery_wipe) $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.wipe)
+	ln -sf prop.default $(TARGET_RECOVERY_ROOT_OUT)/default.prop
+	$(BOARD_RECOVERY_IMAGE_PREPARE)
+	@echo ----- Making uncompressed recovery ramdisk ------
+	cp $(DEVICE_LOGORLE) $(TARGET_RECOVERY_ROOT_OUT)/
+	$(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) > $@
+	rm -f $(recovery_uncompressed_ramdisk)
+	cp $(recovery_uncompressed_device_ramdisk) $(recovery_uncompressed_ramdisk)
 
 recovery_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.img
 recovery_ramdisk_device := $(PRODUCT_OUT)/ramdisk-recovery-device.img
@@ -41,6 +70,10 @@ $(recovery_ramdisk_device): $(MINIGZIP) \
 		$(recovery_uncompressed_device_ramdisk)
 	$(hide) $(MINIGZIP) < $(recovery_uncompressed_ramdisk) > $@
 	$(hide) cp -a $@ $(recovery_ramdisk)
+
+
+
+
 
 INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
 $(INSTALLED_BOOTIMAGE_TARGET): $(PRODUCT_OUT)/kernel \
