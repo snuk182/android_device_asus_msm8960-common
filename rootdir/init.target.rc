@@ -35,7 +35,7 @@ on fs
     wait /dev/block/platform/${ro.boot.bootdevice}
     symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
+    mount none /system/vendor/etc/gps.conf /system/etc/gps_debug.conf bind
 
     mount_all /vendor/etc/fstab.qcom --early
 
