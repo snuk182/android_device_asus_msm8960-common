@@ -47,9 +47,11 @@ def parse_inputs(args):
                 fatal('Incorrect format of input parameter: ' + arg)
 
             seg['file'] = tokens[0]
+            seg['oneline'] = False
             if tokens[1] == 'cmdline':
                 seg['addr'] = '0'
                 seg['flags'] = 'cmdline'
+                seg['oneline'] = True
             else:
                 input = re.match("^(0x[0-9a-fA-F]+)(?:,(ramdisk|ipl|entry|rpm))?$", tokens[1]).groups()
                 seg['addr'] = input[0]
@@ -155,6 +157,10 @@ def main(args):
 
         f = open(seg['file'], 'rb')
         data = f.read()
+
+        if seg['oneline']:
+            data = data.splitlines()[0]
+
         elf.write(data)
         f.close()
 
