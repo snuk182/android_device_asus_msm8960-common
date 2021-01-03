@@ -96,14 +96,12 @@ service tad_static /vendor/bin/tad_static /dev/block/platform/msm_sdcc.1/by-name
     group root system
     socket tad stream 0660 system system
     class core
-    seclabel u:r:tad:s0
 
 # Trim Area QMI service
 service ta_qmi_service /system/bin/ta_qmi_service
     user root
     class main
     group system wakelock
-    seclabel u:r:ta_qmi_service:s0
 
 service hw_config /system/bin/sh /system/etc/hw_config.sh
     class main
@@ -123,13 +121,11 @@ service irsc_util /system/bin/irsc_util "/vendor/etc/sec_config"
     class main
     user root
     oneshot
-    seclabel u:r:irsc_util:s0
 
 service secchand /system/bin/secchand
     user root
     group root drmrpc system
     class core
-    seclabel u:r:secchand:s0
 
 # Override sensors HAL service
 service vendor.sensors-hal-1-0 /vendor/bin/hw/android.hardware.sensors@1.0-service
