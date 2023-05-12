@@ -7,3 +7,6 @@ PRODUCT_PACKAGES += \
     fstab.ramdisk \
     ueventd.qcom.rc
 
+# MACAddrSetup package
+PRODUCT_PACKAGES += \
+    bdAddrLoader

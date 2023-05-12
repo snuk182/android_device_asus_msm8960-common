@@ -15,8 +15,5 @@ BOADR_DT_SIZE := 0
 # Kernel properties
 TARGET_KERNEL_SOURCE := kernel/asus/msm8960
 
-# Custom boot
-#BOARD_CUSTOM_BOOTIMG := true
-#BOARD_CUSTOM_BOOTIMG_MK := $(COMMON_PATH)/boot/custombootimg.mk
-#BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
+# Compress the ramdisk
 BOARD_RAMDISK_USE_XZ := true

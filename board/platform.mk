@@ -11,6 +11,9 @@ TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
     /system/bin/mediaserver=22 \
     /system/vendor/bin/hw/android.hardware.sensors@1.0-service=22
 
+# Dumpstate
+BOARD_LIB_DUMPSTATE := libdumpstate.msm8960
+
 # Images
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
