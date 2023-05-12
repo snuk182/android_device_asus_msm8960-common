@@ -25,8 +25,8 @@ if  [ -z "$DEVICE" ]; then
 fi
 
 # Required!
-export DEVICE_COMMON=blue-common
-export VENDOR=sony
+export DEVICE_COMMON=msm8960-common
+export VENDOR=asus
 export INITIAL_COPYRIGHT_YEAR=2014
 
 # Load extract_utils and do some sanity checks
@@ -49,7 +49,7 @@ setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true
 write_headers "hayabusa mint tsubasa"
 
 # Sony/Board specific blobs
-write_makefiles "$MY_DIR"/proprietary-files-sony.txt
+write_makefiles "$MY_DIR"/proprietary-files-asus.txt
 printf '\n' >> "$PRODUCTMK"
 
 # QCom common board blobs
@@ -64,7 +64,7 @@ setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT"
 write_headers
 
 # Sony/Device specific blobs
-write_makefiles "$MY_DIR"/../$DEVICE/proprietary-files-sony.txt
+write_makefiles "$MY_DIR"/../$DEVICE/proprietary-files-asus.txt
 printf '\n' >> "$PRODUCTMK"
 
 # QCom common device blobs

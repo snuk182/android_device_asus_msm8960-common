@@ -1,7 +1,7 @@
 #============= mediaserver ==============
 allow mediaserver audio_device:chr_file { ioctl open read write };
-#allow mediaserver camera_socket:dir { add_name search write };
-#allow mediaserver camera_socket:file { create getattr open read write };
+allow mediaserver camera_socket:dir { add_name search write };
+allow mediaserver camera_socket:file { create getattr open read write };
 allow mediaserver sensorservice_service:service_manager find;
 allow mediaserver sysfs:dir { open read };
 allow mediaserver sysfs_als:file { getattr open read write };

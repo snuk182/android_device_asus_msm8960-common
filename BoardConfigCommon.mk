@@ -15,7 +15,7 @@
 #
 
 # Board common path
-COMMON_PATH := device/sony/blue-common
+COMMON_PATH := device/asus/msm8960-common
 
 # Board common headers
 TARGET_SPECIFIC_HEADER_PATH += $(COMMON_PATH)/include
@@ -25,4 +25,4 @@ include $(COMMON_PATH)/PlatformConfig.mk
 include $(COMMON_PATH)/board/*.mk
 
 # Board common vendor
--include vendor/sony/blue-common/BoardConfigVendor.mk
+-include vendor/asus/msm8960-common/BoardConfigVendor.mk

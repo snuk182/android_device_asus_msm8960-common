@@ -16,8 +16,8 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := android.hardware.vibrator@1.0-service.blue
-LOCAL_INIT_RC := android.hardware.vibrator@1.0-service.blue.rc
+LOCAL_MODULE := android.hardware.vibrator@1.0-service.msm8960
+LOCAL_INIT_RC := android.hardware.vibrator@1.0-service.msm8960.rc
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := service.cpp Vibrator.cpp
 

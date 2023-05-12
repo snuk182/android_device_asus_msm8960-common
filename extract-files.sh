@@ -25,8 +25,8 @@ if  [ -z "$DEVICE" ]; then
 fi
 
 # Required!
-export DEVICE_COMMON=blue-common
-export VENDOR=sony
+export DEVICE_COMMON=msm8960-common
+export VENDOR=asus
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
@@ -74,7 +74,7 @@ function blob_fixup() {
 setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true "$CLEAN_VENDOR"
 
 # Sony/Board specific blobs
-extract "$MY_DIR"/proprietary-files-sony.txt "$SRC" "$SECTION"
+extract "$MY_DIR"/proprietary-files-asus.txt "$SRC" "$SECTION"
 
 # QCom common board blobs
 extract "$MY_DIR"/proprietary-files-qc.txt "$SRC" "$SECTION"
@@ -86,7 +86,7 @@ extract "$MY_DIR"/proprietary-files-qc.txt "$SRC" "$SECTION"
 setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
 
 # Sony/Device specific blobs
-extract "$MY_DIR"/../$DEVICE/proprietary-files-sony.txt "$SRC" "$SECTION"
+extract "$MY_DIR"/../$DEVICE/proprietary-files-asus.txt "$SRC" "$SECTION"
 
 # QCom common device blobs
 extract "$MY_DIR"/../$DEVICE/proprietary-files-qc.txt "$SRC" "$SECTION"

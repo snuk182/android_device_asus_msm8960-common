@@ -68,7 +68,7 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.gnss</name>
-        <transport>hwbinder</transport>
+        <transport arch="32">passthrough</transport>
         <version>1.0</version>
         <interface>
             <name>IGnss</name>
@@ -113,7 +113,7 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.light</name>
-        <transport>hwbinder</transport>
+        <transport arch="32">passthrough</transport>
         <version>2.0</version>
         <interface>
             <name>ILight</name>
@@ -184,7 +184,7 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.sensors</name>
-        <transport>hwbinder</transport>
+        <transport arch="32">passthrough</transport>
         <version>1.0</version>
         <interface>
             <name>ISensors</name>
@@ -193,7 +193,7 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.vibrator</name>
-        <transport>hwbinder</transport>
+        <transport arch="32">passthrough</transport>
         <version>1.0</version>
         <interface>
             <name>IVibrator</name>

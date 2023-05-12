@@ -16,7 +16,7 @@
 #
 
 # Common path
-COMMON_PATH := device/sony/blue-common
+COMMON_PATH := device/asus/msm8960-common
 
 # Common specific overlays
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
@@ -39,4 +39,4 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 include $(COMMON_PATH)/product/*.mk
 
 # Vendor common configurations
-$(call inherit-product, vendor/sony/blue-common/blue-common-vendor.mk)
+#$(call inherit-product, vendor/asus/msm8960-common/msm8960-common-vendor.mk)

@@ -7,11 +7,3 @@ PRODUCT_PACKAGES += \
     fstab.ramdisk \
     ueventd.qcom.rc
 
-# Sony TrimArea packages
-PRODUCT_PACKAGES += \
-    libta \
-    tad_static
-
-# Sony MACAddrSetup package
-PRODUCT_PACKAGES += \
-    macaddrsetup
