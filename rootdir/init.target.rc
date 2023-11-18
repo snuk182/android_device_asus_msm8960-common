@@ -39,6 +39,9 @@ on fs
 
     mount_all /vendor/etc/fstab.qcom --early
 
+    mkdir /data/asusdata 0775 system system
+    symlink /asusdata /data/asusdata
+
     restorecon /data/misc/audio/mbhc.bin
     restorecon /data/misc/audio/wcd9310_anc.bin
 

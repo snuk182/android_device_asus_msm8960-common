@@ -57,7 +57,9 @@ TRANSPORT=`getprop ro.qualcomm.bt.hci_transport`
 logi "Transport : $TRANSPORT"
 
 #load bd addr
-BDADDR=`cat /data/misc/bluetooth/bdaddr`
+btnvtool -O
+BDADDR=$(btnvtool --print-all-nv 2>&1 | \
+    awk '/--board-address/ { split($2, mac, "."); printf("%s:%s:%s:%s:%s:%s\n", mac[6], mac[5], mac[4], mac[3], mac[2], mac[1]); }')
 
 setprop bluetooth.status off
 setprop vendor.bluetooth.status off

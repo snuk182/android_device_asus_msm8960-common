@@ -30,7 +30,6 @@
 /system/bin/rmt_storage                                                           u:object_r:rmt_storage_exec:s0
 /system/bin/secchand                                                              u:object_r:secchand_exec:s0
 /system/bin/ta_qmi_service                                                        u:object_r:ta_qmi_service_exec:s0
-/system/bin/updatemiscta                                                          u:object_r:updatemiscta_exec:s0
 
 # /vendor
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@[0-9]\.[0-9]-service\..*   u:object_r:hal_gatekeeper_default_exec:s0
@@ -38,7 +37,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.[0-9]+-service.*       u:object_r:hal_power_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator@1\.0-service\..*       u:object_r:hal_vibrator_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service\..*           u:object_r:hal_wifi_default_exec:s0
-/(vendor|system/vendor)/bin/bdAddrLoader	  				u:object_r:bdaddrloader_exec:s0
+#/(vendor|system/vendor)/bin/btnvtool	  					u:object_r:btnvtool_exec:s0
 /(vendor|system/vendor)/bin/thermanager                                           u:object_r:thermanager_exec:s0
 
 # /sys
@@ -126,3 +125,5 @@
 
 # /
 /tombstones                                                                       u:object_r:rootfs:s0
+/fsg										u:object_r:fsg_file:s0
+/asusdata									u:object_r:asusdata_file:s0

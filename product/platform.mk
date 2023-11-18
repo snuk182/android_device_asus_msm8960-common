@@ -7,6 +7,7 @@ PRODUCT_PACKAGES += \
     fstab.ramdisk \
     ueventd.qcom.rc
 
-# MACAddrSetup package
+# btnvtool package
 PRODUCT_PACKAGES += \
-    bdAddrLoader
+    btnvtool \
+    hci_qcomm_init

@@ -1,6 +1,12 @@
 # /proc
 type proc_swap, fs_type;
 
+# /fsg
+type fsg_file, file_type;
+
+# /asusdata
+type asusdata_file, file_type;
+
 # /sys
 type sysfs_als, fs_type, sysfs_type;
 type sysfs_block_iosched, fs_type, sysfs_type;
